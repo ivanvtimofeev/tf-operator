@@ -361,6 +361,11 @@ func (r *ReconcileAnalyticsSnmp) Reconcile(request reconcile.Request) (reconcile
 		return reconcile.Result{}, err
 	}
 
+	if *instance.Status.Active {
+		reqLogger.Info("Waiging for Active will be true")
+		return requeueReconcile, nil
+	}
+
 	reqLogger.Info("Done")
 	return reconcile.Result{}, nil
 }
